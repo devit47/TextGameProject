@@ -33,7 +33,6 @@ public class Monster {
         this.stamina = stamina;
     }
 
-    @Override
     public String toString() {
         return "Stamina: " + getStamina();
     }

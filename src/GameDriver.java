@@ -1,30 +1,34 @@
+import javax.swing.*;
+
 public class GameDriver {
     public static void main(String[] args) {
-//        JFrame jFrame = new JFrame("The Warlock of Firetop Mountain");
-//        jFrame.setSize(400, 400);
-//        jFrame.setVisible(true);
+        Framework framework = new Framework();
+        framework.frame();
 
-        final int INITIALSKILL = rollDice() + 6;
-        final int INITIALSTAMINA = rollDice() + rollDice() + 12;
-        final int INITIALLUCK = rollDice() + 6;
-        Player player = new Player(INITIALSKILL, INITIALSTAMINA, INITIALLUCK);
+        int initialSkill = rollDice() + 6;
+        int initialStamina = rollDice() + rollDice() + 12;
+        int initialLuck = rollDice() + 6;
+        Player player = new Player(initialSkill, initialStamina, initialLuck);
 
         Monster monster = new Monster(10, 10);
 
         System.out.println("Player: " + player.getStamina());
         System.out.println("Monster: " + monster.getStamina());
 
+        battle(player, monster);
+
+    }
+
+    public static int rollDice(){
+        return (int) (Math.random() * 6 + 1);
+    }
+
+    public static void battle(Player player, Monster monster){
         while(monster.getStamina() > 0 && player.getStamina() > 0){
             battleTurn(player, monster);
             System.out.println("Player: " + player.getStamina());
             System.out.println("Monster: " + monster.getStamina());
         }
-
-    }
-
-    public static int rollDice(){
-        int diceRoll = (int) (Math.random() * 6 + 1);
-        return diceRoll;
     }
 
     public static void battleTurn(Player player, Monster monster){

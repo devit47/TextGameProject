@@ -1,4 +1,4 @@
-public class Player {
+public class Player{
     private int skill, stamina, luck, gold, potions;
 
     public Player(){
@@ -59,7 +59,6 @@ public class Player {
         this.potions = potions;
     }
 
-    @Override
     public String toString() {
         return "Skill: " + getSkill() + " Stamina: " + getStamina() + " Luck: " + getLuck();
     }
