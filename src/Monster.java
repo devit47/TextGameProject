@@ -1,22 +1,27 @@
-public class Monster {
+import javax.swing.*;
+
+public class Monster{
+    private String name;
     private int skill, stamina;
 
     public Monster(){
-
+        setName(JOptionPane.showInputDialog("Enter name"));
+        setSkill(Integer.parseInt(JOptionPane.showInputDialog("Enter skill")));
+        setStamina(Integer.parseInt(JOptionPane.showInputDialog("Enter stamina")));
     }
 
-    public Monster(int stamina){
-        setStamina(stamina);
-    }
-
-    public Monster(int skill, int stamina){
+    public Monster(String name, int skill, int stamina){
+        setName(name);
         setSkill(skill);
         setStamina(stamina);
     }
 
-    public int attack(){
-        int attackPower = (int) (Math.random() * 11 + 2);
-        return attackPower;
+
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
     }
 
     public int getSkill() {
@@ -34,6 +39,6 @@ public class Monster {
     }
 
     public String toString() {
-        return "Stamina: " + getStamina();
+        return getName() + " stamina: " + getStamina();
     }
 }

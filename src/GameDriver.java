@@ -2,20 +2,18 @@ import javax.swing.*;
 
 public class GameDriver {
     public static void main(String[] args) {
-        Framework framework = new Framework();
-        framework.frame();
 
         int initialSkill = rollDice() + 6;
-        int initialStamina = rollDice() + rollDice() + 12;
+        int initialStamina = roll2Dice() + 12;
         int initialLuck = rollDice() + 6;
+
         Player player = new Player(initialSkill, initialStamina, initialLuck);
 
-        Monster monster = new Monster(10, 10);
+        Framework.player = player;
+        Battle.player = player;
+        Framework framework = new Framework();
 
-        System.out.println("Player: " + player.getStamina());
-        System.out.println("Monster: " + monster.getStamina());
-
-        battle(player, monster);
+        framework.frame();
 
     }
 
@@ -23,22 +21,19 @@ public class GameDriver {
         return (int) (Math.random() * 6 + 1);
     }
 
-    public static void battle(Player player, Monster monster){
-        while(monster.getStamina() > 0 && player.getStamina() > 0){
-            battleTurn(player, monster);
-            System.out.println("Player: " + player.getStamina());
-            System.out.println("Monster: " + monster.getStamina());
-        }
+    public static int roll2Dice(){
+        return rollDice() + rollDice();
     }
 
-    public static void battleTurn(Player player, Monster monster){
-        int playerStrength = player.getSkill() + rollDice() + rollDice();
-        int monsterStrength = monster.getSkill() + rollDice() + rollDice();
+    public static void testLuckForButton(Player player){
+        int roll = roll2Dice();
 
-        if(playerStrength > monsterStrength){
-            monster.setStamina(monster.getStamina() - 2);
-        }else if(monsterStrength > playerStrength){
-            player.setStamina(player.getStamina() - 2);
+        if(roll <= player.getLuck()){
+            player.setLuck(player.getLuck() - 1);
+            JOptionPane.showMessageDialog(null, "Lucky!!", "Luck Test", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            player.setLuck(player.getLuck() - 1);
+            JOptionPane.showMessageDialog(null, "Unlucky :(", "Luck Test", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

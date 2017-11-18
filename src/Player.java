@@ -1,14 +1,7 @@
 public class Player{
-    private int skill, stamina, luck, gold, potions;
+    private int skill, stamina, luck, potions, gold, provisions;
 
     public Player(){
-//        this.skill = 0;
-//        this.stamina = 0;
-//        this.luck = 0;
-    }
-
-    public Player(int stamina){
-        setStamina(stamina);
     }
 
     public Player(int skill, int stamina, int luck){
@@ -19,9 +12,20 @@ public class Player{
         setPotions(0);
     }
 
-    public int attack(){
-        int attackPower = (int) (Math.random() * 11 + 2);
-        return attackPower;
+    public boolean testLuck(){
+        int roll = GameDriver.roll2Dice();
+        if(roll <= luck){
+            setLuck(getLuck() - 1);
+            return true;
+        }else{
+            setLuck(getLuck() - 1);
+            return false;
+        }
+    }
+
+    public void escape(){
+        setStamina(getStamina() - 2);
+        // Accommodate to test luck which would reduce stamina reduction to 1
     }
 
     public int getSkill() {
@@ -59,7 +63,14 @@ public class Player{
         this.potions = potions;
     }
 
+    public int getProvisions() {
+        return provisions;
+    }
+    public void setProvisions(int provisions) {
+        this.provisions = provisions;
+    }
+
     public String toString() {
-        return "Skill: " + getSkill() + " Stamina: " + getStamina() + " Luck: " + getLuck();
+        return "Player Stamina: " + getStamina();
     }
 }
