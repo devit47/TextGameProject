@@ -1,5 +1,5 @@
-public class Player{
-    private int skill, stamina, luck, potions, gold, provisions;
+public class Player extends GameCharacter{
+    private int luck, potions, gold, provisions;
 
     public Player(){
     }
@@ -26,20 +26,6 @@ public class Player{
     public void escape(){
         setStamina(getStamina() - 2);
         // Accommodate to test luck which would reduce stamina reduction to 1
-    }
-
-    public int getSkill() {
-        return skill;
-    }
-    public void setSkill(int skill) {
-        this.skill = skill;
-    }
-
-    public int getStamina() {
-        return stamina;
-    }
-    public void setStamina(int stamina) {
-        this.stamina = stamina;
     }
 
     public int getLuck() {

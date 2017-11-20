@@ -24,6 +24,8 @@ public class Battle{
             for(Monster monster: monsterArray){
                 if(monster.getStamina() > 0){
                     battleTurn(player, monster);
+
+                    // TESTING
                     System.out.println(player.toString());
                     System.out.println(monster.toString());
                 }
@@ -39,7 +41,6 @@ public class Battle{
     private static void battleTurn(Player player, Monster monster){
         int playerStrength = player.getSkill() + GameDriver.roll2Dice();
         int monsterStrength = monster.getSkill() + GameDriver.roll2Dice();
-        // System.out.println("Player str: " + playerStrength + " Monster str: " + monsterStrength);
 
         if(playerStrength > monsterStrength){
             if(JOptionPane.showConfirmDialog(null, "Try your luck to increase damage inflicted on "

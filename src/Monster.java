@@ -1,8 +1,7 @@
 import javax.swing.*;
 
-public class Monster{
+public class Monster extends GameCharacter{
     private String name;
-    private int skill, stamina;
 
     public Monster(){
         setName(JOptionPane.showInputDialog("Enter name"));
@@ -22,20 +21,6 @@ public class Monster{
     }
     public void setName(String name){
         this.name = name;
-    }
-
-    public int getSkill() {
-        return skill;
-    }
-    public void setSkill(int skill) {
-        this.skill = skill;
-    }
-
-    public int getStamina() {
-        return stamina;
-    }
-    public void setStamina(int stamina) {
-        this.stamina = stamina;
     }
 
     public String toString() {

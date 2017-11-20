@@ -1,7 +1,7 @@
 import javax.swing.*;
 
-public class GameDriver {
-    public static void main(String[] args) {
+public class GameDriver{
+    public static void main(String[] args){
 
         int initialSkill = rollDice() + 6;
         int initialStamina = roll2Dice() + 12;
@@ -23,17 +23,5 @@ public class GameDriver {
 
     public static int roll2Dice(){
         return rollDice() + rollDice();
-    }
-
-    public static void testLuckForButton(Player player){
-        int roll = roll2Dice();
-
-        if(roll <= player.getLuck()){
-            player.setLuck(player.getLuck() - 1);
-            JOptionPane.showMessageDialog(null, "Lucky!!", "Luck Test", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            player.setLuck(player.getLuck() - 1);
-            JOptionPane.showMessageDialog(null, "Unlucky :(", "Luck Test", JOptionPane.INFORMATION_MESSAGE);
-        }
     }
 }
