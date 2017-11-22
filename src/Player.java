@@ -1,25 +1,52 @@
 public class Player extends GameCharacter{
     private int luck, potions, gold, provisions;
 
-    public Player(){
-    }
+    private int initialSkill = GameDriver.rollDice() + 6;
+    private int initialStamina = GameDriver.roll2Dice() + 12;
+    private int initialLuck = GameDriver.rollDice() + 6;
 
-    public Player(int skill, int stamina, int luck){
-        setSkill(skill);
-        setStamina(stamina);
-        setLuck(luck);
+    public Player(){
+        setSkill(initialSkill);
+        setStamina(initialStamina);
+        setLuck(initialLuck);
         setGold(0);
         setPotions(0);
+        setProvisions(10);
     }
 
+    // Allows the player to test their Luck which decrements by 1 before returning true or false
     public boolean testLuck(){
-        int roll = GameDriver.roll2Dice();
-        if(roll <= luck){
-            setLuck(getLuck() - 1);
+        if(getLuck() > 0){
+            int roll = GameDriver.roll2Dice();
+            if(roll <= luck){
+                setLuck(getLuck() - 1);
+                return true;
+            }else{
+                setLuck(getLuck() - 1);
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    // Checks if the player has any provisions left and returns a true value if greater than 0
+    public boolean hasProvisions(){
+        if(getProvisions() > 0){
             return true;
         }else{
-            setLuck(getLuck() - 1);
             return false;
+        }
+    }
+
+    // Allows the player to use provisions which increases Stamina by 4 but never exceed the initial value
+    public void useProvisions(){
+        if(getStamina() + 4 >= initialStamina){
+            setStamina(initialStamina);
+            setProvisions(getProvisions() - 1);
+        }else{
+            setStamina(getStamina() + 4);
+            setProvisions(getProvisions() - 1);
         }
     }
 

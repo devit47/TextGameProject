@@ -1,15 +1,15 @@
 import javax.swing.*;
 
-public class Monster extends GameCharacter{
+public class Enemy extends GameCharacter{
     private String name;
 
-    public Monster(){
+    public Enemy(){
         setName(JOptionPane.showInputDialog("Enter name"));
         setSkill(Integer.parseInt(JOptionPane.showInputDialog("Enter skill")));
         setStamina(Integer.parseInt(JOptionPane.showInputDialog("Enter stamina")));
     }
 
-    public Monster(String name, int skill, int stamina){
+    public Enemy(String name, int skill, int stamina){
         setName(name);
         setSkill(skill);
         setStamina(stamina);

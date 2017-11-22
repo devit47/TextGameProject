@@ -2,59 +2,66 @@ import javax.swing.*;
 
 public class Battle{
 
-    private static int totalEnemyStamina;
     static Player player;
+    static int totalEnemyStamina;
 
     public static void manageBattle(){
         battle(player, defineMonsterArray());
     }
 
-    public static Monster[] defineMonsterArray(){
-        int numEnemies = Integer.parseInt(JOptionPane.showInputDialog("How many?"));
-        Monster[] monsterArray = new Monster[numEnemies];
 
-        for(int i = 0; i < monsterArray.length; i++){
-            monsterArray[i] = new Monster();
+    public static Enemy[] defineMonsterArray(){
+        String userInput;
+        do{
+            userInput = JOptionPane.showInputDialog("How many enemies must you do battle with?\n(Numeric values only)");
+        }while(Misc.checkIfInteger(userInput) == false);
+
+        int numEnemies = Integer.parseInt(userInput);
+        Enemy[] enemyArray = new Enemy[numEnemies];
+
+        for(int i = 0; i < enemyArray.length; i++){
+            enemyArray[i] = new Enemy();
         }
-        return monsterArray;
+        return enemyArray;
     }
 
-    public static void battle(Player player, Monster[] monsterArray){
+    public static void battle(Player player, Enemy[] enemyArray){
+
         do{
-            for(Monster monster: monsterArray){
-                if(monster.getStamina() > 0){
-                    battleTurn(player, monster);
+            for(Enemy enemy : enemyArray){
+                if(enemy.getStamina() > 0){
+                    battleTurn(player, enemy);
 
                     // TESTING
                     System.out.println(player.toString());
-                    System.out.println(monster.toString());
+                    System.out.println(enemy.toString());
                 }
             }
-
             totalEnemyStamina = 0;
-            for(Monster monster: monsterArray){
-                totalEnemyStamina += monster.getStamina();
+            for(Enemy enemy : enemyArray){
+                totalEnemyStamina += enemy.getStamina();
             }
         }while(player.getStamina() > 0 && totalEnemyStamina > 0);
     }
 
-    private static void battleTurn(Player player, Monster monster){
+    private static void battleTurn(Player player, Enemy enemy){
         int playerStrength = player.getSkill() + GameDriver.roll2Dice();
-        int monsterStrength = monster.getSkill() + GameDriver.roll2Dice();
+        int monsterStrength = enemy.getSkill() + GameDriver.roll2Dice();
 
         if(playerStrength > monsterStrength){
             if(JOptionPane.showConfirmDialog(null, "Try your luck to increase damage inflicted on "
-                            + monster.getName() + "?", "Try your luck?",
+                            + enemy.getName() + "?", "Try your luck?",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                 if(player.testLuck()){
-                    monster.setStamina(monster.getStamina() - 4);
+                    enemy.setStamina(enemy.getStamina() - 4);
                     Framework.playerLuckLabel.setText("Luck: " + player.getLuck());
                 }else{
-                    monster.setStamina(monster.getStamina() - 1);
+                    enemy.setStamina(enemy.getStamina() - 1);
                     Framework.playerLuckLabel.setText("Luck: " + player.getLuck());
                 }
             }else{
-                monster.setStamina(monster.getStamina() - 2);
+                enemy.setStamina(enemy.getStamina() - 2);
+                Framework.battleInfo.append("\nYou hit " + enemy.getName() + " for 2 points of Stamina");
             }
         }else if(monsterStrength > playerStrength){
             if(JOptionPane.showConfirmDialog(null, "Try your luck to reduce damage taken by 1?" +
