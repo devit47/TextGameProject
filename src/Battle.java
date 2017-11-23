@@ -55,13 +55,18 @@ public class Battle{
                 if(player.testLuck()){
                     enemy.setStamina(enemy.getStamina() - 4);
                     Framework.playerLuckLabel.setText("Luck: " + player.getLuck());
+                    Framework.battleInfo.append("\nYou hit " + enemy.getName() + " for 4 points of Stamina\n" +
+                            enemy.getName() + " stamina: " + enemy.getStamina());
                 }else{
                     enemy.setStamina(enemy.getStamina() - 1);
                     Framework.playerLuckLabel.setText("Luck: " + player.getLuck());
+                    Framework.battleInfo.append("\nYou hit " + enemy.getName() + " for 1 point of Stamina\n" +
+                            enemy.getName() + " stamina: " + enemy.getStamina());
                 }
             }else{
                 enemy.setStamina(enemy.getStamina() - 2);
-                Framework.battleInfo.append("\nYou hit " + enemy.getName() + " for 2 points of Stamina");
+                Framework.battleInfo.append("\nYou hit " + enemy.getName() + " for 2 points of Stamina\n" +
+                        enemy.getName() + " stamina: " + enemy.getStamina());
             }
         }else if(monsterStrength > playerStrength){
             if(JOptionPane.showConfirmDialog(null, "Try your luck to reduce damage taken by 1?" +
@@ -71,14 +76,17 @@ public class Battle{
                     player.setStamina(player.getStamina() - 1);
                     Framework.playerLuckLabel.setText("Luck: " + player.getLuck());
                     Framework.playerStaminaLabel.setText("Stamina: " + player.getStamina());
+                    Framework.battleInfo.append("\n" + enemy.getName() + " hit you for 1 point of Stamina");
                 }else{
                     player.setStamina(player.getStamina() - 3);
                     Framework.playerLuckLabel.setText("Luck: " + player.getLuck());
                     Framework.playerStaminaLabel.setText("Stamina: " + player.getStamina());
+                    Framework.battleInfo.append("\n" + enemy.getName() + " hit you for 3 points of Stamina");
                 }
             }else{
                 player.setStamina(player.getStamina() - 2);
                 Framework.playerStaminaLabel.setText("Stamina: " + player.getStamina());
+                Framework.battleInfo.append("\n" + enemy.getName() + " hit you for 2 points of Stamina");
             }
         }else{
             JOptionPane.showMessageDialog(null, "You and your foes attacks narrowly miss each other");

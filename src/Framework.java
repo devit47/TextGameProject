@@ -199,6 +199,7 @@ public class Framework{
             if(player.hasProvisions()){
                 player.useProvisions();
                 playerProvisionsLabel.setText("Provisions: " + player.getProvisions());
+                playerStaminaLabel.setText("Stamina: " + player.getStamina());
             }else{
                 JOptionPane.showMessageDialog(null, "No provisions left");
             }
