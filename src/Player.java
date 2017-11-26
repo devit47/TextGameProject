@@ -14,6 +14,19 @@ public class Player extends GameCharacter{
         setProvisions(10);
     }
 
+    public Player(int skill, int stamina, int luck, int gold, int potions, int provisions, int initialSkill,
+                  int initialStamina, int initialLuck){
+        setSkill(skill);
+        setStamina(stamina);
+        setLuck(luck);
+        setGold(gold);
+        setPotions(potions);
+        setProvisions(provisions);
+        setInitialSkill(initialSkill);
+        setInitialStamina(initialStamina);
+        setInitialLuck(initialLuck);
+    }
+
     // Allows the player to test their Luck which decrements by 1 before returning true or false
     public boolean testLuck(){
         if(getLuck() > 0){
@@ -53,6 +66,27 @@ public class Player extends GameCharacter{
     public void escape(){
         setStamina(getStamina() - 2);
         // Accommodate to test luck which would reduce stamina reduction to 1
+    }
+
+    public int getInitialSkill(){
+        return initialSkill;
+    }
+    public void setInitialSkill(int initialSkill){
+        this.initialSkill = initialSkill;
+    }
+
+    public int getInitialStamina(){
+        return initialStamina;
+    }
+    public void setInitialStamina(int initialStamina){
+        this.initialStamina = initialStamina;
+    }
+
+    public int getInitialLuck(){
+        return initialLuck;
+    }
+    public void setInitialLuck(int initialLuck){
+        this.initialLuck = initialLuck;
     }
 
     public int getLuck() {

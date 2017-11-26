@@ -3,7 +3,7 @@ import javax.swing.*;
 public class Battle{
 
     static Player player;
-    static int totalEnemyStamina;
+
 
     public static void manageBattle(){
         battle(player, defineMonsterArray());
@@ -14,7 +14,7 @@ public class Battle{
         String userInput;
         do{
             userInput = JOptionPane.showInputDialog("How many enemies must you do battle with?\n(Numeric values only)");
-        }while(Misc.checkIfInteger(userInput) == false);
+        }while(!Misc.checkIfInteger(userInput));
 
         int numEnemies = Integer.parseInt(userInput);
         Enemy[] enemyArray = new Enemy[numEnemies];
@@ -25,8 +25,8 @@ public class Battle{
         return enemyArray;
     }
 
-    public static void battle(Player player, Enemy[] enemyArray){
-
+    private static void battle(Player player, Enemy[] enemyArray){
+        int totalEnemyStamina;
         do{
             for(Enemy enemy : enemyArray){
                 if(enemy.getStamina() > 0){
@@ -69,8 +69,8 @@ public class Battle{
                         enemy.getName() + " stamina: " + enemy.getStamina());
             }
         }else if(monsterStrength > playerStrength){
-            if(JOptionPane.showConfirmDialog(null, "Try your luck to reduce damage taken by 1?" +
-                            "\nShould you be unlucky the enemy hits for 3 points of stamina", "Try your luck?",
+            if(JOptionPane.showConfirmDialog(null, "Try your luck to reduce damage taken by 1?"
+                            + "\nShould you be unlucky the enemy hits for 3 points of stamina", "Try your luck?",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                 if(player.testLuck()){
                     player.setStamina(player.getStamina() - 1);
@@ -89,7 +89,7 @@ public class Battle{
                 Framework.battleInfo.append("\n" + enemy.getName() + " hit you for 2 points of Stamina");
             }
         }else{
-            JOptionPane.showMessageDialog(null, "You and your foes attacks narrowly miss each other");
+            Framework.battleInfo.append("\nYou and your opponents attacks miss one another");
         }
     }
 }

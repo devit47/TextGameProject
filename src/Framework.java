@@ -2,10 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class Framework{
     JTextField paraEntryField;
@@ -15,11 +11,12 @@ public class Framework{
     ImageIcon imageIcon;
     static JLabel playerSkillLabel, playerStaminaLabel, playerLuckLabel, playerProvisionsLabel;
     static JTextArea battleInfo;
-    String line2;
+
+    static int paragraphNumber = 0;
 
     static Player player;
 
-    public Framework() {
+    public Framework(){
         jFrame = new JFrame("The Warlock of Firetop Mountain");
         jFrame.setSize(500, 720);
         jFrame.setResizable(false);
@@ -79,6 +76,12 @@ public class Framework{
         LuckTest luckTest = new LuckTest();
         testLuckButton.addActionListener(luckTest);
 
+        JButton saveButton = new JButton("Save");
+        leftPanel.add(saveButton);
+        SaveProgress saveProgress = new SaveProgress();
+        saveButton.addActionListener(saveProgress);
+
+
         JLabel backgroundImage = new JLabel(new ImageIcon("../TextGameImages/warlock.jpg"));
         backgroundImage.setSize(rightPanel.getWidth(), rightPanel.getHeight());
         rightPanel.setLayer(backgroundImage, 0);
@@ -130,7 +133,8 @@ public class Framework{
 
         battleInfo = new JTextArea();
 
-        JScrollPane scrPane = new JScrollPane(battleInfo, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scrPane = new JScrollPane(battleInfo, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrPane.setLocation(0,600);
         scrPane.setSize(350, 90);
         rightPanel.setLayer(scrPane, 2);
@@ -156,7 +160,7 @@ public class Framework{
     // ActionListener which changes paragraph image based on paragraph number entered
     private class TextFieldEventHandler implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            int paragraphNumber = Integer.parseInt(paraEntryField.getText());
+            paragraphNumber = Integer.parseInt(paraEntryField.getText());
             System.out.println(paragraphNumber);
             if(paragraphNumber > 0 && paragraphNumber <= 400){
                 rightPanel.remove(paragraphImage);
@@ -203,6 +207,17 @@ public class Framework{
             }else{
                 JOptionPane.showMessageDialog(null, "No provisions left");
             }
+        }
+    }
+
+    // Saves player details to text file
+    private class SaveProgress implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            String compiledPlayerDetails = player.getSkill() + " " + player.getStamina() + " " + player.getLuck()
+                    + " " + player.getGold() + " " + player.getPotions() + " " + player.getProvisions() + " " +
+                    paragraphNumber + " " + player.getInitialSkill() + " " + player.getInitialStamina() + " " +
+                    player.getInitialLuck();
+            FileManager.writeToFile(compiledPlayerDetails);
         }
     }
 }
