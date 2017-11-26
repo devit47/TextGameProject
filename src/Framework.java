@@ -3,21 +3,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Framework{
+class Framework{
     JTextField paraEntryField;
-    JFrame jFrame;
-    JLayeredPane rightPanel;
-    JLabel paragraphImage;
-    ImageIcon imageIcon;
+    private JLayeredPane rightPanel;
+    private JLabel paragraphImage;
+    private ImageIcon imageIcon;
     static JLabel playerSkillLabel, playerStaminaLabel, playerLuckLabel, playerProvisionsLabel;
     static JTextArea battleInfo;
 
-    static int paragraphNumber = 0;
+    private static int paragraphNumber = 0;
 
     static Player player;
 
-    public Framework(){
-        jFrame = new JFrame("The Warlock of Firetop Mountain");
+    Framework(){
+        JFrame jFrame = new JFrame("The Warlock of Firetop Mountain");
         jFrame.setSize(500, 720);
         jFrame.setResizable(false);
 
@@ -88,40 +87,6 @@ public class Framework{
         rightPanel.add(backgroundImage);
 
 
-//        BufferedReader bufferedReader = null;
-//        try{
-//            bufferedReader = new BufferedReader(new FileReader("../TextGameParagraphs/p1.txt"));
-//        }catch(FileNotFoundException e){
-//            e.printStackTrace();
-//        }
-//
-//        String line;
-//        try{
-//            while((line = bufferedReader.readLine()) != null){
-//                line2 = line;
-//            }
-//        }catch(IOException e){
-//            e.printStackTrace();
-//
-//        }
-//        try{
-//            bufferedReader.close();
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-
-
-//        JTextArea jTextArea = new JTextArea(line2);
-//        jTextArea.setLocation(25, 10);
-//        jTextArea.setSize(350, 700);
-//        jTextArea.setFont(new Font("Century", Font.BOLD, 12));
-//        jTextArea.setLineWrap(true);
-//        jTextArea.setWrapStyleWord(true);
-//        jTextArea.setOpaque(false);
-//        jTextArea.setForeground(Color.white);
-//        rightPanel.setLayer(jTextArea, 1);
-//        rightPanel.add(jTextArea);
-
         // Displays the initial paragraph image using an imageIcon and JLabel
         imageIcon = new ImageIcon("../TextGameImages/p1.PNG");
         paragraphImage = new JLabel(imageIcon);
@@ -144,7 +109,7 @@ public class Framework{
         jFrame.setVisible(true);
     }
 
-    public void frame(){
+    void frame(){
         playerSkillLabel.setText("Skill: " + player.getSkill());
         playerStaminaLabel.setText("Stamina: " + player.getStamina());
         playerLuckLabel.setText("Luck: " + player.getLuck());
@@ -152,7 +117,7 @@ public class Framework{
     }
 
     // Method which takes in an int as an argument and returns a file path in the form of a String
-    public String imageLocation(int paragraphNumber){
+    private String imageLocation(int paragraphNumber){
         return "../TextGameImages/p" + paragraphNumber + ".PNG";
     }
 

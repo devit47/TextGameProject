@@ -5,7 +5,7 @@ public class Player extends GameCharacter{
     private int initialStamina = GameDriver.roll2Dice() + 12;
     private int initialLuck = GameDriver.rollDice() + 6;
 
-    public Player(){
+    Player(){
         setSkill(initialSkill);
         setStamina(initialStamina);
         setLuck(initialLuck);
@@ -14,7 +14,7 @@ public class Player extends GameCharacter{
         setProvisions(10);
     }
 
-    public Player(int skill, int stamina, int luck, int gold, int potions, int provisions, int initialSkill,
+    Player(int skill, int stamina, int luck, int gold, int potions, int provisions, int initialSkill,
                   int initialStamina, int initialLuck){
         setSkill(skill);
         setStamina(stamina);
@@ -28,7 +28,7 @@ public class Player extends GameCharacter{
     }
 
     // Allows the player to test their Luck which decrements by 1 before returning true or false
-    public boolean testLuck(){
+    boolean testLuck(){
         if(getLuck() > 0){
             int roll = GameDriver.roll2Dice();
             if(roll <= luck){
@@ -44,7 +44,7 @@ public class Player extends GameCharacter{
     }
 
     // Checks if the player has any provisions left and returns a true value if greater than 0
-    public boolean hasProvisions(){
+    boolean hasProvisions(){
         if(getProvisions() > 0){
             return true;
         }else{
@@ -53,7 +53,7 @@ public class Player extends GameCharacter{
     }
 
     // Allows the player to use provisions which increases Stamina by 4 but never exceed the initial value
-    public void useProvisions(){
+    void useProvisions(){
         if(getStamina() + 4 >= initialStamina){
             setStamina(initialStamina);
             setProvisions(getProvisions() - 1);
@@ -68,52 +68,52 @@ public class Player extends GameCharacter{
         // Accommodate to test luck which would reduce stamina reduction to 1
     }
 
-    public int getInitialSkill(){
+    int getInitialSkill(){
         return initialSkill;
     }
-    public void setInitialSkill(int initialSkill){
+    private void setInitialSkill(int initialSkill){
         this.initialSkill = initialSkill;
     }
 
-    public int getInitialStamina(){
+    int getInitialStamina(){
         return initialStamina;
     }
-    public void setInitialStamina(int initialStamina){
+    private void setInitialStamina(int initialStamina){
         this.initialStamina = initialStamina;
     }
 
-    public int getInitialLuck(){
+    int getInitialLuck(){
         return initialLuck;
     }
-    public void setInitialLuck(int initialLuck){
+    private void setInitialLuck(int initialLuck){
         this.initialLuck = initialLuck;
     }
 
-    public int getLuck() {
+    int getLuck() {
         return luck;
     }
-    public void setLuck(int luck) {
+    private void setLuck(int luck) {
         this.luck = luck;
     }
 
-    public int getGold() {
+    int getGold() {
         return gold;
     }
-    public void setGold(int gold) {
+    private void setGold(int gold) {
         this.gold = gold;
     }
 
-    public int getPotions() {
+    int getPotions() {
         return potions;
     }
-    public void setPotions(int potions) {
+    private void setPotions(int potions) {
         this.potions = potions;
     }
 
-    public int getProvisions() {
+    int getProvisions() {
         return provisions;
     }
-    public void setProvisions(int provisions) {
+    private void setProvisions(int provisions) {
         this.provisions = provisions;
     }
 

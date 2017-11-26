@@ -1,18 +1,18 @@
-public class GameCharacter{
+class GameCharacter{
 
     private int skill, stamina;
 
-    public int getSkill(){
+    int getSkill(){
         return skill;
     }
-    public void setSkill(int skill){
+    void setSkill(int skill){
         this.skill = skill;
     }
 
-    public int getStamina(){
+    int getStamina(){
         return stamina;
     }
-    public void setStamina(int stamina){
+    void setStamina(int stamina){
         this.stamina = stamina;
     }
 }

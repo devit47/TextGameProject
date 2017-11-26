@@ -3,7 +3,7 @@ import javax.swing.*;
 public class Enemy extends GameCharacter{
     private String name;
 
-    public Enemy(){
+    Enemy(){
         setName(JOptionPane.showInputDialog("Enter name"));
         setSkill(Integer.parseInt(JOptionPane.showInputDialog("Enter skill")));
         setStamina(Integer.parseInt(JOptionPane.showInputDialog("Enter stamina")));
@@ -16,10 +16,10 @@ public class Enemy extends GameCharacter{
     }
 
 
-    public String getName(){
+    String getName(){
         return name;
     }
-    public void setName(String name){
+    private void setName(String name){
         this.name = name;
     }
 

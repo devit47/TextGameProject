@@ -1,10 +1,10 @@
 import java.io.*;
 
-public class FileManager{
+class FileManager{
 
     private static final String FILENAME = "../TextGameParagraphs/file.txt";
 
-    public static void writeToFile(String input){
+    static void writeToFile(String input){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))){
 
             bw.write(input);
@@ -18,7 +18,7 @@ public class FileManager{
         }
     }
 
-    public static String readFile(){
+    static String readFile(){
 
         BufferedReader br = null;
         String line2 = "";

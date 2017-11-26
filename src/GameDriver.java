@@ -46,12 +46,12 @@ public class GameDriver{
     }
 
     // Simulates a single dice throw which returns a number between 1 and 6
-    public static int rollDice(){
+    static int rollDice(){
         return (int) (Math.random() * 6 + 1);
     }
 
     // Simulates a double dice throw which returns a number between 2 and 12
-    public static int roll2Dice(){
+    static int roll2Dice(){
         return rollDice() + rollDice();
     }
 }

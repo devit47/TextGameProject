@@ -1,16 +1,16 @@
 import javax.swing.*;
 
-public class Battle{
+class Battle{
 
     static Player player;
 
 
-    public static void manageBattle(){
+    static void manageBattle(){
         battle(player, defineMonsterArray());
     }
 
 
-    public static Enemy[] defineMonsterArray(){
+    private static Enemy[] defineMonsterArray(){
         String userInput;
         do{
             userInput = JOptionPane.showInputDialog("How many enemies must you do battle with?\n(Numeric values only)");
