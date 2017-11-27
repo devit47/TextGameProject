@@ -8,10 +8,18 @@ class FileManager{
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))){
 
             bw.write(input);
-
             bw.close();
 
-            System.out.println("Done");
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    static void appendToFile(String input){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME, true))){
+
+            bw.write(input);
+            bw.close();
 
         }catch(IOException e){
             e.printStackTrace();
@@ -19,7 +27,6 @@ class FileManager{
     }
 
     static String readFile(){
-
         BufferedReader br = null;
         String line2 = "";
 
@@ -29,7 +36,7 @@ class FileManager{
             e.printStackTrace();
         }
 
-        String line = "";
+        String line;
         try{
             while((line = br.readLine()) != null){
                 line2 = line;

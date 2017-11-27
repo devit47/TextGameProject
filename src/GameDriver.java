@@ -18,20 +18,15 @@ public class GameDriver{
             System.out.println(previousSession);
 
             String[] playerAttributes = previousSession.split(" ");
-            int playerSkill = Integer.parseInt(playerAttributes[0]);
-            int playerStamina = Integer.parseInt(playerAttributes[1]);
-            int playerLuck = Integer.parseInt(playerAttributes[2]);
-            int playerGold = Integer.parseInt(playerAttributes[3]);
-            int playerPotions = Integer.parseInt(playerAttributes[4]);
-            int playerProvisions = Integer.parseInt(playerAttributes[5]);
+            int[] playerAttributesAsInts = new int[playerAttributes.length];
+            for(int i = 0; i < playerAttributes.length; i++){
+                playerAttributesAsInts[i] = Integer.parseInt(playerAttributes[i]);
+            }
 
-            // int currentParagraph = Integer.parseInt(playerAttributes[6]);
-            int playerInitialSkill = Integer.parseInt(playerAttributes[7]);
-            int playerInitialStamina = Integer.parseInt(playerAttributes[8]);
-            int playerInitialLuck = Integer.parseInt(playerAttributes[9]);
-
-            Player loadedPlayer = new Player(playerSkill, playerStamina, playerLuck, playerGold, playerPotions,
-                    playerProvisions, playerInitialSkill, playerInitialStamina, playerInitialLuck);
+            Player loadedPlayer = new Player(playerAttributesAsInts[0], playerAttributesAsInts[1],
+                    playerAttributesAsInts[2], playerAttributesAsInts[3], playerAttributesAsInts[4],
+                    playerAttributesAsInts[5], playerAttributesAsInts[6], playerAttributesAsInts[7],
+                    playerAttributesAsInts[8]);
 
             Framework.player = loadedPlayer;
             Battle.player = loadedPlayer;
@@ -39,19 +34,8 @@ public class GameDriver{
 
             framework.frame();
 
-            framework.paraEntryField.setText(playerAttributes[6]);
-
+            framework.changeParagraphImage(playerAttributesAsInts[9]);
         }
-
     }
 
-    // Simulates a single dice throw which returns a number between 1 and 6
-    static int rollDice(){
-        return (int) (Math.random() * 6 + 1);
-    }
-
-    // Simulates a double dice throw which returns a number between 2 and 12
-    static int roll2Dice(){
-        return rollDice() + rollDice();
-    }
 }

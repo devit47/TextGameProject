@@ -4,14 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class Framework{
-    JTextField paraEntryField;
-    private JLayeredPane rightPanel;
-    private JLabel paragraphImage;
-    private ImageIcon imageIcon;
+    private JTextField paraEntryField;
+    private static JLayeredPane rightPanel;
+    private static JLabel paragraphImage;
+    private static ImageIcon imageIcon;
     static JLabel playerSkillLabel, playerStaminaLabel, playerLuckLabel, playerProvisionsLabel;
     static JTextArea battleInfo;
 
-    private static int paragraphNumber = 0;
+    private static int paragraphNumber = 1;
 
     static Player player;
 
@@ -117,7 +117,7 @@ class Framework{
     }
 
     // Method which takes in an int as an argument and returns a file path in the form of a String
-    private String imageLocation(int paragraphNumber){
+    private static String imageLocation(int paragraphNumber){
         return "../TextGameImages/p" + paragraphNumber + ".PNG";
     }
 
@@ -125,20 +125,27 @@ class Framework{
     // ActionListener which changes paragraph image based on paragraph number entered
     private class TextFieldEventHandler implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            paragraphNumber = Integer.parseInt(paraEntryField.getText());
-            System.out.println(paragraphNumber);
-            if(paragraphNumber > 0 && paragraphNumber <= 400){
-                rightPanel.remove(paragraphImage);
-                rightPanel.repaint();
-                imageIcon = new ImageIcon(imageLocation(paragraphNumber));
-                paragraphImage = new JLabel(imageIcon);
-                paragraphImage.setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
-                paragraphImage.setLocation(85, 5);
-                rightPanel.setLayer(paragraphImage, 1);
-                rightPanel.add(paragraphImage);
-                rightPanel.setVisible(true);
-                paraEntryField.setText("");
+            if(Misc.checkIfInteger(paraEntryField.getText())){
+                paragraphNumber = Integer.parseInt(paraEntryField.getText());
+                System.out.println(paragraphNumber);
+
             }
+            changeParagraphImage(paragraphNumber);
+            paraEntryField.setText("");
+        }
+    }
+
+    void changeParagraphImage(int paragraphNumber){
+        if(paragraphNumber > 0 && paragraphNumber <= 400){
+            rightPanel.remove(paragraphImage);
+            rightPanel.repaint();
+            imageIcon = new ImageIcon(imageLocation(paragraphNumber));
+            paragraphImage = new JLabel(imageIcon);
+            paragraphImage.setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
+            paragraphImage.setLocation(85, 5);
+            rightPanel.setLayer(paragraphImage, 1);
+            rightPanel.add(paragraphImage);
+            rightPanel.setVisible(true);
         }
     }
 
@@ -178,11 +185,8 @@ class Framework{
     // Saves player details to text file
     private class SaveProgress implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            String compiledPlayerDetails = player.getSkill() + " " + player.getStamina() + " " + player.getLuck()
-                    + " " + player.getGold() + " " + player.getPotions() + " " + player.getProvisions() + " " +
-                    paragraphNumber + " " + player.getInitialSkill() + " " + player.getInitialStamina() + " " +
-                    player.getInitialLuck();
-            FileManager.writeToFile(compiledPlayerDetails);
+            FileManager.writeToFile(player.playerAttributeValues());
+            FileManager.appendToFile(Integer.toString(paragraphNumber));
         }
     }
 }

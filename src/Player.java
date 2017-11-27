@@ -1,9 +1,9 @@
-public class Player extends GameCharacter{
+public class Player extends GameCharacter implements PlayerAbilities{
     private int luck, potions, gold, provisions;
 
-    private int initialSkill = GameDriver.rollDice() + 6;
-    private int initialStamina = GameDriver.roll2Dice() + 12;
-    private int initialLuck = GameDriver.rollDice() + 6;
+    private int initialSkill = Misc.rollDice() + 6;
+    private int initialStamina = Misc.roll2Dice() + 12;
+    private int initialLuck = Misc.rollDice() + 6;
 
     Player(){
         setSkill(initialSkill);
@@ -28,9 +28,9 @@ public class Player extends GameCharacter{
     }
 
     // Allows the player to test their Luck which decrements by 1 before returning true or false
-    boolean testLuck(){
+    public boolean testLuck(){
         if(getLuck() > 0){
-            int roll = GameDriver.roll2Dice();
+            int roll = Misc.roll2Dice();
             if(roll <= luck){
                 setLuck(getLuck() - 1);
                 return true;
@@ -44,16 +44,12 @@ public class Player extends GameCharacter{
     }
 
     // Checks if the player has any provisions left and returns a true value if greater than 0
-    boolean hasProvisions(){
-        if(getProvisions() > 0){
-            return true;
-        }else{
-            return false;
-        }
+    public boolean hasProvisions(){
+        return getProvisions() > 0;
     }
 
     // Allows the player to use provisions which increases Stamina by 4 but never exceed the initial value
-    void useProvisions(){
+    public void useProvisions(){
         if(getStamina() + 4 >= initialStamina){
             setStamina(initialStamina);
             setProvisions(getProvisions() - 1);
@@ -63,11 +59,7 @@ public class Player extends GameCharacter{
         }
     }
 
-    public void escape(){
-        setStamina(getStamina() - 2);
-        // Accommodate to test luck which would reduce stamina reduction to 1
-    }
-
+    // Getter and setters for Player attributes
     int getInitialSkill(){
         return initialSkill;
     }
@@ -117,7 +109,13 @@ public class Player extends GameCharacter{
         this.provisions = provisions;
     }
 
-    public String toString() {
+    public String toString(){
         return "Player Stamina: " + getStamina();
+    }
+
+    // Returns a String with all of the Players attributes
+    public String playerAttributeValues(){
+        return getSkill() + " " + getStamina() + " " + getLuck() + " " + getGold() + " " + getPotions() + " " +
+                getProvisions() + " " + getInitialSkill() + " " + getInitialStamina() + " " + getInitialLuck() + " ";
     }
 }

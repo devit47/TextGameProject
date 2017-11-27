@@ -4,11 +4,9 @@ class Battle{
 
     static Player player;
 
-
     static void manageBattle(){
         battle(player, defineMonsterArray());
     }
-
 
     private static Enemy[] defineMonsterArray(){
         String userInput;
@@ -45,8 +43,8 @@ class Battle{
     }
 
     private static void battleTurn(Player player, Enemy enemy){
-        int playerStrength = player.getSkill() + GameDriver.roll2Dice();
-        int monsterStrength = enemy.getSkill() + GameDriver.roll2Dice();
+        int playerStrength = player.getSkill() + Misc.roll2Dice();
+        int monsterStrength = enemy.getSkill() + Misc.roll2Dice();
 
         if(playerStrength > monsterStrength){
             if(JOptionPane.showConfirmDialog(null, "Try your luck to increase damage inflicted on "
