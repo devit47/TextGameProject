@@ -1,6 +1,5 @@
 public class Player extends GameCharacter implements PlayerAbilities{
     private int luck, potions, gold, provisions;
-
     private int initialSkill = Misc.rollDice() + 6;
     private int initialStamina = Misc.roll2Dice() + 12;
     private int initialLuck = Misc.rollDice() + 6;
@@ -60,21 +59,21 @@ public class Player extends GameCharacter implements PlayerAbilities{
     }
 
     // Getter and setters for Player attributes
-    int getInitialSkill(){
+    private int getInitialSkill(){
         return initialSkill;
     }
     private void setInitialSkill(int initialSkill){
         this.initialSkill = initialSkill;
     }
 
-    int getInitialStamina(){
+    private int getInitialStamina(){
         return initialStamina;
     }
     private void setInitialStamina(int initialStamina){
         this.initialStamina = initialStamina;
     }
 
-    int getInitialLuck(){
+    private int getInitialLuck(){
         return initialLuck;
     }
     private void setInitialLuck(int initialLuck){
@@ -114,7 +113,7 @@ public class Player extends GameCharacter implements PlayerAbilities{
     }
 
     // Returns a String with all of the Players attributes
-    public String playerAttributeValues(){
+    String playerAttributeValues(){
         return getSkill() + " " + getStamina() + " " + getLuck() + " " + getGold() + " " + getPotions() + " " +
                 getProvisions() + " " + getInitialSkill() + " " + getInitialStamina() + " " + getInitialLuck() + " ";
     }

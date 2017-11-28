@@ -2,7 +2,7 @@ import java.io.*;
 
 class FileManager{
 
-    private static final String FILENAME = "../TextGameParagraphs/file.txt";
+    private static final String FILENAME = "src/TextGameParagraphs/file.txt";
 
     static void writeToFile(String input){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))){

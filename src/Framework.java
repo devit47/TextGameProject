@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.JMenuBar;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +9,9 @@ class Framework{
     private static JLayeredPane rightPanel;
     private static JLabel paragraphImage;
     private static ImageIcon imageIcon;
-    static JLabel playerSkillLabel, playerStaminaLabel, playerLuckLabel, playerProvisionsLabel;
+    static JLabel playerSkillLabel, playerStaminaLabel, playerLuckLabel, playerProvisionsLabel, backgroundImage;
     static JTextArea battleInfo;
+    private static JMenu fileMenu;
 
     private static int paragraphNumber = 1;
 
@@ -21,6 +23,13 @@ class Framework{
         jFrame.setResizable(false);
 
         jFrame.setLayout(null);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        createFileMenu();
+
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setLocation(350,0);
+        menuBar.setSize(50, 20);
+        menuBar.add(fileMenu);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(Color.black);
@@ -75,20 +84,14 @@ class Framework{
         LuckTest luckTest = new LuckTest();
         testLuckButton.addActionListener(luckTest);
 
-        JButton saveButton = new JButton("Save");
-        leftPanel.add(saveButton);
-        SaveProgress saveProgress = new SaveProgress();
-        saveButton.addActionListener(saveProgress);
-
-
-        JLabel backgroundImage = new JLabel(new ImageIcon("../TextGameImages/warlock.jpg"));
+        backgroundImage = new JLabel(new ImageIcon("src/TextGameImages/bkgrd3.jpg"));
         backgroundImage.setSize(rightPanel.getWidth(), rightPanel.getHeight());
         rightPanel.setLayer(backgroundImage, 0);
         rightPanel.add(backgroundImage);
 
 
         // Displays the initial paragraph image using an imageIcon and JLabel
-        imageIcon = new ImageIcon("../TextGameImages/p1.PNG");
+        imageIcon = new ImageIcon("src/TextGameImages/p1.PNG");
         paragraphImage = new JLabel(imageIcon);
         paragraphImage.setLocation(85, 5);
         paragraphImage.setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
@@ -105,6 +108,8 @@ class Framework{
         rightPanel.setLayer(scrPane, 2);
         rightPanel.add(scrPane);
 
+        rightPanel.setLayer(menuBar, 2);
+        rightPanel.add(menuBar);
 
         jFrame.setVisible(true);
     }
@@ -118,7 +123,7 @@ class Framework{
 
     // Method which takes in an int as an argument and returns a file path in the form of a String
     private static String imageLocation(int paragraphNumber){
-        return "../TextGameImages/p" + paragraphNumber + ".PNG";
+        return "src/TextGameImages/p" + paragraphNumber + ".PNG";
     }
 
 
@@ -145,8 +150,17 @@ class Framework{
             paragraphImage.setLocation(85, 5);
             rightPanel.setLayer(paragraphImage, 1);
             rightPanel.add(paragraphImage);
+            changebkgrdImage();
             rightPanel.setVisible(true);
         }
+    }
+
+    void changebkgrdImage(){
+        rightPanel.remove(backgroundImage);
+        backgroundImage = new JLabel(new ImageIcon("src/TextGameImages/bkgrd" + Misc.rollDice() + ".jpg"));
+        backgroundImage.setSize(rightPanel.getWidth(), rightPanel.getHeight());
+        rightPanel.setLayer(backgroundImage, 0);
+        rightPanel.add(backgroundImage);
     }
 
     // ActionListener which launches the manageBattle method from the Battle class
@@ -160,10 +174,10 @@ class Framework{
     private class LuckTest implements ActionListener{
         public void actionPerformed(ActionEvent e){
             if(player.testLuck()){
-                JOptionPane.showMessageDialog(null, "Lucky!!", "Luck Test", JOptionPane.INFORMATION_MESSAGE);
+                battleInfo.append("\nYou were lucky!!!");
                 playerLuckLabel.setText("Luck: " + player.getLuck());
             }else{
-                JOptionPane.showMessageDialog(null, "Unlucky :(", "Luck Test", JOptionPane.INFORMATION_MESSAGE);
+                battleInfo.append("\nYou were unlucky :(");
                 playerLuckLabel.setText("Luck: " + player.getLuck());
             }
         }
@@ -188,5 +202,32 @@ class Framework{
             FileManager.writeToFile(player.playerAttributeValues());
             FileManager.appendToFile(Integer.toString(paragraphNumber));
         }
+    }
+
+    private class QuitGame implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            System.exit(0);
+        }
+    }
+
+    private void createFileMenu(){
+        SaveProgress saveProgress = new SaveProgress();
+        QuitGame quitGame = new QuitGame();
+
+        // Create menu button
+        fileMenu = new JMenu("File");
+
+        // declare a menu item (re-usable)
+        JMenuItem item;
+
+        // Add Save tab and ActionListener
+        item = new JMenuItem("Save");
+        item.addActionListener(saveProgress);
+        fileMenu.add(item);
+
+        // Add Quit tab and ActionListener
+        item = new JMenuItem("Quit");
+        item.addActionListener(quitGame);
+        fileMenu.add(item);
     }
 }

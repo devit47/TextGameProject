@@ -8,6 +8,24 @@ class Battle{
         battle(player, defineMonsterArray());
     }
 
+    private static Enemy createAndValidateEnemy(int number){
+        String name = JOptionPane.showInputDialog("Enter enemy no." + number + " name:");
+
+        String skillAsString;
+        do{
+            skillAsString = JOptionPane.showInputDialog("Enter enemy no." + number + " skill:");
+        }while(!Misc.checkIfInteger(skillAsString));
+        int skill = Integer.parseInt(skillAsString);
+
+        String staminaAsString;
+        do{
+            staminaAsString = JOptionPane.showInputDialog("Enter enemy no." + number + " stamina:");
+        }while(!Misc.checkIfInteger(staminaAsString));
+        int stamina = Integer.parseInt(staminaAsString);
+
+        return new Enemy(name, skill, stamina);
+    }
+
     private static Enemy[] defineMonsterArray(){
         String userInput;
         do{
@@ -18,7 +36,7 @@ class Battle{
         Enemy[] enemyArray = new Enemy[numEnemies];
 
         for(int i = 0; i < enemyArray.length; i++){
-            enemyArray[i] = new Enemy();
+            enemyArray[i] = createAndValidateEnemy(i + 1);
         }
         return enemyArray;
     }
