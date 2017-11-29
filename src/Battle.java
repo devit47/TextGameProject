@@ -4,10 +4,15 @@ class Battle{
 
     static Player player;
 
+    // Launches a battle if the Enemy array size is greater than 0 and less than 6
     static void manageBattle(){
-        battle(player, defineMonsterArray());
+        int numEnemies = defineMonsterArraySize();
+        if(numEnemies > 0 && numEnemies <= 6){
+            battle(player, buildMonsterArray(numEnemies));
+        }
     }
 
+    // Creates and validates an Enemy object using user input
     private static Enemy createAndValidateEnemy(int number){
         String name = JOptionPane.showInputDialog("Enter enemy no." + number + " name:");
 
@@ -26,13 +31,19 @@ class Battle{
         return new Enemy(name, skill, stamina);
     }
 
-    private static Enemy[] defineMonsterArray(){
-        String userInput;
-        do{
-            userInput = JOptionPane.showInputDialog("How many enemies must you do battle with?\n(Numeric values only)");
-        }while(!Misc.checkIfInteger(userInput));
+    // Uses user input to define the size of an Enemy array while also validating the input
+    private static int defineMonsterArraySize(){
+        String userInput = JOptionPane.showInputDialog("How many enemies must you do battle with?\n" +
+                "(Numeric values only (1 - 6))");
+        if(Misc.checkIfInteger(userInput)){
+            return Integer.parseInt(userInput);
+        }else{
+            return 0;
+        }
+    }
 
-        int numEnemies = Integer.parseInt(userInput);
+    // Builds an Enemy array
+    private static Enemy[] buildMonsterArray(int numEnemies){
         Enemy[] enemyArray = new Enemy[numEnemies];
 
         for(int i = 0; i < enemyArray.length; i++){
@@ -41,16 +52,18 @@ class Battle{
         return enemyArray;
     }
 
+    /*
+    Simulates a battle by calling the battleTurn method for each each enemy in the array in order.
+    The method will continue looping while both the player stamina and the total of the enemy arrays stamina
+    is greater than 0.
+    If the players stamina drops to 0 or below a message is displayed and the program ends.
+     */
     private static void battle(Player player, Enemy[] enemyArray){
         int totalEnemyStamina;
         do{
             for(Enemy enemy : enemyArray){
                 if(enemy.getStamina() > 0){
                     battleTurn(player, enemy);
-
-                    // TESTING
-                    System.out.println(player.toString());
-                    System.out.println(enemy.toString());
                 }
             }
             totalEnemyStamina = 0;
@@ -58,8 +71,19 @@ class Battle{
                 totalEnemyStamina += enemy.getStamina();
             }
         }while(player.getStamina() > 0 && totalEnemyStamina > 0);
+
+        if(player.getStamina() <= 0){
+            JOptionPane.showMessageDialog(null, "Your quest has come to an end");
+            System.exit(0);
+        }
     }
 
+    /*
+    At the start of each turn the player and enemies strength is determined, which ever is higher will inflict damage on the
+    others stamina.
+    The player has the option to try their luck to increase damage inflicted or reduce damage incurred.
+    If both characters strength is the same neither takes damage to stamina and a message is displayed.
+     */
     private static void battleTurn(Player player, Enemy enemy){
         int playerStrength = player.getSkill() + Misc.roll2Dice();
         int monsterStrength = enemy.getSkill() + Misc.roll2Dice();
