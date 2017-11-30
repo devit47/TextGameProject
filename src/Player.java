@@ -26,7 +26,9 @@ public class Player extends GameCharacter implements PlayerAbilities{
         setInitialLuck(initialLuck);
     }
 
-    // Allows the player to test their Luck which decrements by 1 before returning true or false
+    /**
+     * Allows the player to test their Luck which decrements by 1 before returning true or false
+     */
     public boolean testLuck(){
         if(getLuck() > 0){
             int roll = Misc.roll2Dice();
@@ -42,12 +44,16 @@ public class Player extends GameCharacter implements PlayerAbilities{
         }
     }
 
-    // Checks if the player has any provisions left and returns a true value if greater than 0
+    /**
+     * Checks if the player has any provisions left and returns a true value if greater than 0
+     */
     public boolean hasProvisions(){
         return getProvisions() > 0;
     }
 
-    // Allows the player to use provisions which increases Stamina by 4 but never exceed the initial value
+    /**
+     * Allows the player to use provisions which increases Stamina by 4 but never exceed the initial value
+     */
     public void useProvisions(){
         if(getStamina() + 4 >= initialStamina){
             setStamina(initialStamina);
@@ -58,7 +64,9 @@ public class Player extends GameCharacter implements PlayerAbilities{
         }
     }
 
-    // Getter and setters for Player attributes
+    /**
+     * Getter and setters for Player attributes
+     */
     private int getInitialSkill(){
         return initialSkill;
     }
@@ -112,7 +120,9 @@ public class Player extends GameCharacter implements PlayerAbilities{
         return "Player Stamina: " + getStamina();
     }
 
-    // Returns a String with all of the Players attributes
+    /**
+     * Returns a String with all of the Players attributes
+     */
     String playerAttributeValues(){
         return getSkill() + " " + getStamina() + " " + getLuck() + " " + getGold() + " " + getPotions() + " " +
                 getProvisions() + " " + getInitialSkill() + " " + getInitialStamina() + " " + getInitialLuck() + " ";

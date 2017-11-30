@@ -12,9 +12,11 @@ class WelcomeMenuGUI{
         welcomeJFrame.setSize(400, 400);
         welcomeJFrame.setResizable(false);
 
+        // Ref #2 start
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         welcomeJFrame.setLocation((dim.width / 2) - (welcomeJFrame.getWidth() / 2),
                 (dim.height / 2) - (welcomeJFrame.getHeight() / 2));
+        // Ref #2 end
 
         welcomeJFrame.setLayout(null);
         welcomeJFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -53,7 +55,9 @@ class WelcomeMenuGUI{
         welcomeJFrame.setVisible(true);
     }
 
-    // Calls the launchNewGame method and disposes of the JFrame
+    /**
+     * Calls the launchNewGame method and disposes of the JFrame
+     */
     private class NewGameLauncher implements ActionListener {
         public void actionPerformed(ActionEvent e){
             GameLauncher.launchNewGame();
@@ -61,7 +65,9 @@ class WelcomeMenuGUI{
         }
     }
 
-    // Calls the launchLoadedGame method and disposes of the JFrame
+    /**
+     * Calls the launchLoadedGame method and disposes of the JFrame
+     */
     private class LoadGameLauncher implements ActionListener {
         public void actionPerformed(ActionEvent e){
             GameLauncher.launchLoadedGame();

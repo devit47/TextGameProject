@@ -1,6 +1,8 @@
 class GameLauncher{
 
-    // Creates a new Player object using the no arguments constructor and launches the GUI
+    /**
+     * Creates a new Player object using the no arguments constructor and launches the GUI
+     */
     static void launchNewGame(){
         Player player = new Player();
 
@@ -11,15 +13,22 @@ class GameLauncher{
         framework.frame();
     }
 
-    /*
-    Reads in the previous game session details and inserts them into the second Player constructor.
-    Launches the GUI and displays the last paragraph the user was at when the save was made.
+    static void restart(){
+
+        GameDriver.main(null);
+    }
+
+    /**
+     * Reads in the previous game session details and inserts them into the second Player constructor.
+     * Launches the GUI and displays the last paragraph the user was at when the save was made.
      */
     static void launchLoadedGame(){
         String previousSession = FileManager.readFile();
         System.out.println(previousSession);
 
+        // Ref #5 start
         String[] playerAttributes = previousSession.split(" ");
+        // Ref #5 end
         int[] playerAttributesAsInts = new int[playerAttributes.length];
         for(int i = 0; i < playerAttributes.length; i++){
             playerAttributesAsInts[i] = Integer.parseInt(playerAttributes[i]);

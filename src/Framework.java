@@ -12,22 +12,24 @@ class Framework{
     static JLabel playerSkillLabel, playerStaminaLabel, playerLuckLabel, playerProvisionsLabel, backgroundImage;
     static JTextArea battleInfo;
     private static JMenu fileMenu;
-
+    private static JFrame jFrame;
     private static int paragraphNumber = 1;
 
     static Player player;
 
     Framework(){
-        JFrame jFrame = new JFrame("The Warlock of Firetop Mountain");
+        jFrame = new JFrame("The Warlock of Firetop Mountain");
         jFrame.setSize(500, 720);
         jFrame.setResizable(false);
 
         jFrame.setLayout(null);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        // Ref #2 start
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         jFrame.setLocation((dim.width / 2) - (jFrame.getWidth() / 2),
                 (dim.height / 2) - (jFrame.getHeight() / 2));
+        // Ref #2 end
 
         createFileMenu();
 
@@ -87,7 +89,9 @@ class Framework{
             }
         });
 
-        // Add JButton and Listener to launch battle
+        /**
+         * Add JButton and Listener to launch battle
+         */
         JButton battleButton = new JButton("Battle!");
         leftPanel.add(battleButton);
         battleButton.addActionListener(new LaunchBattle());
@@ -96,12 +100,16 @@ class Framework{
         leftPanel.add(testLuckButton);
         testLuckButton.addActionListener(new LuckTest());
 
+        // Ref #3 start
         backgroundImage = new JLabel(new ImageIcon("../TextGameImages/bkgrd3.jpg"));
         backgroundImage.setSize(rightPanel.getWidth(), rightPanel.getHeight());
         rightPanel.setLayer(backgroundImage, 0);
         rightPanel.add(backgroundImage);
+        // Ref #3 end
 
-        // Displays the initial paragraph image using an imageIcon and JLabel
+        /**
+         * Displays the initial paragraph image using an imageIcon and JLabel
+         */
         imageIcon = new ImageIcon("../TextGameImages/p1.PNG");
         paragraphImage = new JLabel(imageIcon);
         paragraphImage.setLocation(85, 5);
@@ -110,20 +118,23 @@ class Framework{
         rightPanel.add(paragraphImage);
 
         battleInfo = new JTextArea();
+        // Ref #4 start
         JScrollPane scrPane = new JScrollPane(battleInfo, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrPane.setLocation(0,600);
         scrPane.setSize(350, 90);
         rightPanel.setLayer(scrPane, 2);
         rightPanel.add(scrPane);
-
+        // Ref #4 end
         rightPanel.setLayer(menuBar, 2);
         rightPanel.add(menuBar);
 
         jFrame.setVisible(true);
     }
 
-    // Displays the player initial values of skill, stamina, luck and provisions
+    /**
+     * Displays the player initial values of skill, stamina, luck and provisions
+     */
     void frame(){
         playerSkillLabel.setText("Skill: " + player.getSkill());
         playerStaminaLabel.setText("Stamina: " + player.getStamina());
@@ -131,25 +142,16 @@ class Framework{
         playerProvisionsLabel.setText("Provisions: " + player.getProvisions());
     }
 
-    // Method which takes in an int as an argument and returns a file path in the form of a String
+    /**
+     * Method which takes in an int as an argument and returns a file path in the form of a String
+     */
     private static String imageLocation(int paragraphNumber){
         return "../TextGameImages/p" + paragraphNumber + ".PNG";
     }
 
-    // ActionListener which changes paragraph image based on paragraph number entered
-    private class TextFieldEventHandler implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            if(Misc.checkIfInteger(paraEntryField.getText())){
-                paragraphNumber = Integer.parseInt(paraEntryField.getText());
-                System.out.println(paragraphNumber);
-
-            }
-            changeParagraphImage(paragraphNumber);
-            paraEntryField.setText("");
-        }
-    }
-
-    // Changes the paragraph image than is displayed on the GUI
+    /**
+     * Changes the paragraph image than is displayed on the GUI
+     */
     void changeParagraphImage(int paragraphNumber){
         if(paragraphNumber > 0 && paragraphNumber <= 400){
             rightPanel.remove(paragraphImage);
@@ -165,7 +167,9 @@ class Framework{
         }
     }
 
-    // Changes the background image randomly when called
+    /**
+     * Changes the background image randomly when called
+     */
     void changebkgrdImage(){
         rightPanel.remove(backgroundImage);
         backgroundImage = new JLabel(new ImageIcon("../TextGameImages/bkgrd" + Misc.rollDice() + ".jpg"));
@@ -174,14 +178,18 @@ class Framework{
         rightPanel.add(backgroundImage);
     }
 
-    // ActionListener which launches the manageBattle method from the Battle class
+    /**
+     * ActionListener which launches the manageBattle method from the Battle class
+     */
     private class LaunchBattle implements ActionListener{
         public void actionPerformed(ActionEvent e){
             Battle.manageBattle();
         }
     }
 
-    // ActionListener which calls the testLuck method in the Player class if the player has enough Luck
+    /**
+     * ActionListener which calls the testLuck method in the Player class if the player has enough Luck
+     */
     private class LuckTest implements ActionListener{
         public void actionPerformed(ActionEvent e){
             if(player.testLuck()){
@@ -194,7 +202,9 @@ class Framework{
         }
     }
 
-    // ActionListener which allows the player to use provisions if they have any
+    /**
+     * ActionListener which allows the player to use provisions if they have any
+     */
     private class UseProvisions implements ActionListener{
         public void actionPerformed(ActionEvent e){
             if(player.hasProvisions()){
@@ -207,7 +217,9 @@ class Framework{
         }
     }
 
-    // Saves player details to text file
+    /**
+     * Saves player details to text file
+     */
     private class SaveProgress implements ActionListener{
         public void actionPerformed(ActionEvent e){
             FileManager.writeToFile(player.playerAttributeValues());
@@ -215,14 +227,18 @@ class Framework{
         }
     }
 
-    // Exits the program when executed
+    /**
+     * Saves player details to text file
+     */
     private class QuitGame implements ActionListener{
         public void actionPerformed(ActionEvent e){
             System.exit(0);
         }
     }
 
-    // Creates the file menu
+    /**
+     * Creates the file menu
+     */
     private void createFileMenu(){
         SaveProgress saveProgress = new SaveProgress();
         QuitGame quitGame = new QuitGame();

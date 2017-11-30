@@ -4,7 +4,10 @@ class FileManager{
 
     private static final String FILENAME = "../TextGameParagraphs/file.txt";
 
-    // Writes a string to a text file and overwrites its previous contents
+    // Ref #1 start
+    /**
+     * Writes a string to a text file and overwrites its previous contents
+     */
     static void writeToFile(String input){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))){
 
@@ -16,7 +19,9 @@ class FileManager{
         }
     }
 
-    // Appends a string to a text file
+    /**
+     * Appends a string to a text file
+     */
     static void appendToFile(String input){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME, true))){
 
@@ -28,7 +33,9 @@ class FileManager{
         }
     }
 
-    // Reads in the last saved game details
+    /**
+     * Reads in the last saved game details
+     */
     static String readFile(){
         BufferedReader br = null;
         String line2 = "";
@@ -56,4 +63,5 @@ class FileManager{
 
         return line2;
     }
+    // Ref #1 end
 }

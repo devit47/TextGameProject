@@ -2,7 +2,6 @@ public class Enemy extends GameCharacter{
     private String name;
 
     Enemy(){
-
     }
 
     public Enemy(String name, int skill, int stamina){

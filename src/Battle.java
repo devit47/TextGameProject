@@ -4,7 +4,9 @@ class Battle{
 
     static Player player;
 
-    // Launches a battle if the Enemy array size is greater than 0 and less than 6
+    /**
+     * Launches a battle if the Enemy array size is greater than 0 and less than 6
+     */
     static void manageBattle(){
         int numEnemies = defineMonsterArraySize();
         if(numEnemies > 0 && numEnemies <= 6){
@@ -12,7 +14,9 @@ class Battle{
         }
     }
 
-    // Creates and validates an Enemy object using user input
+    /**
+     * Creates and validates an Enemy object using user input
+     */
     private static Enemy createAndValidateEnemy(int number){
         String name = JOptionPane.showInputDialog("Enter enemy no." + number + " name:");
 
@@ -31,7 +35,9 @@ class Battle{
         return new Enemy(name, skill, stamina);
     }
 
-    // Uses user input to define the size of an Enemy array while also validating the input
+    /**
+     * Uses user input to define the size of an Enemy array while also validating the input
+     */
     private static int defineMonsterArraySize(){
         String userInput = JOptionPane.showInputDialog("How many enemies must you do battle with?\n" +
                 "(Numeric values only (1 - 6))");
@@ -42,7 +48,9 @@ class Battle{
         }
     }
 
-    // Builds an Enemy array
+    /**
+     * Builds an array of Enemy
+     */
     private static Enemy[] buildMonsterArray(int numEnemies){
         Enemy[] enemyArray = new Enemy[numEnemies];
 
@@ -52,11 +60,11 @@ class Battle{
         return enemyArray;
     }
 
-    /*
-    Simulates a battle by calling the battleTurn method for each each enemy in the array in order.
-    The method will continue looping while both the player stamina and the total of the enemy arrays stamina
-    is greater than 0.
-    If the players stamina drops to 0 or below a message is displayed and the program ends.
+    /**
+     * Simulates a battle by calling the battleTurn method for each each enemy in the array in order.
+     * The method will continue looping while both the player stamina and the total of the enemy arrays stamina
+     * is greater than 0.
+     * If the players stamina drops to 0 or below a message is displayed and the program ends.
      */
     private static void battle(Player player, Enemy[] enemyArray){
         int totalEnemyStamina;
@@ -78,11 +86,11 @@ class Battle{
         }
     }
 
-    /*
-    At the start of each turn the player and enemies strength is determined, which ever is higher will inflict damage on the
-    others stamina.
-    The player has the option to try their luck to increase damage inflicted or reduce damage incurred.
-    If both characters strength is the same neither takes damage to stamina and a message is displayed.
+    /**
+     * At the start of each turn the player and enemies strength is determined, which ever is higher will inflict damage on the
+     * others stamina.
+     * The player has the option to try their luck to increase damage inflicted or reduce damage incurred.
+     * If both characters strength is the same neither takes damage to stamina and a message is displayed.
      */
     private static void battleTurn(Player player, Enemy enemy){
         int playerStrength = player.getSkill() + Misc.roll2Dice();
